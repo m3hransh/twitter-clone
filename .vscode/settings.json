@@ -1,0 +1,37 @@
+{
+    "restoreTerminals.terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "web",
+          "commands": [
+            "cd web",
+            "clear",
+          ]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "server",
+          "commands": [
+            "cd server",
+            "docker-compose up -d",
+            "clear",
+            "yarn dev",
+          ]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "git",
+          "commands": [
+          ]
+        }
+      ]
+    }
+  ]
+}
