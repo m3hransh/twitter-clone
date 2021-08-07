@@ -2,7 +2,8 @@ import { useMutation, gql } from '@apollo/client';
 import { FC } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import TwitterLogo from '../assets/twitter-logo.png';
 
 const SIGNUP_MUTATION = gql`
   mutation signup($name: String, $email: String!, $password: String!) {
@@ -47,8 +48,9 @@ const Signup: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Signup </h1>
+    <div className="mx-auto max-w-lg w-1/2 flex flex-col items-center text-center mt-16">
+      <img src={TwitterLogo} alt="logo" className="w-12" />
+      <h1 className="text-xl font-bold">Signup </h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -63,7 +65,7 @@ const Signup: FC = () => {
           history.push('/users');
         }}
       >
-        <Form>
+        <Form className="w-full flex flex-col space-y-5 mt-3">
           <Field name="email" type="text" placeholder="Email" />
           <ErrorMessage name="email" component={'div'} />
           <Field name="name" type="text" placeholder="Name" />
@@ -76,9 +78,20 @@ const Signup: FC = () => {
             placeholder="Confirm Password"
           />
           <ErrorMessage name="confirmPassword" component={'div'} />
-          <button type="submit">Signup</button>
+          <button
+            className="bg-primary rounded-3xl p-2 text-secondary font-bold"
+            type="submit"
+          >
+            Signup
+          </button>
         </Form>
       </Formik>
+      <div className="mt-14">
+        <h4 className="font-bold">Already have an account?</h4>
+        <Link className="text-accent" to="/login">
+          Login
+        </Link>
+      </div>
     </div>
   );
 };
