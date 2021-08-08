@@ -2,15 +2,16 @@ import { permissions } from './permissions';
 import { applyMiddleware } from 'graphql-middleware';
 import {
   Mutation,
-  Post,
+  Tweet,
   Query,
+  Profile,
   User,
   AuthPayload,
   UserCreateInput,
   UserUniqueInput,
-  PostCreateInput,
+  TweetCreateInput,
   SortOrder,
-  PostOrderByUpdatedAtInput,
+  TweetOrderByUpdatedAtInput,
   DateTime,
 } from './types';
 import { makeSchema } from 'nexus';
@@ -19,14 +20,15 @@ const schemaWithoutPermissions = makeSchema({
   types: [
     Query,
     Mutation,
-    Post,
+    Tweet,
     User,
+    Profile,
     AuthPayload,
     UserUniqueInput,
     UserCreateInput,
-    PostCreateInput,
+    TweetCreateInput,
     SortOrder,
-    PostOrderByUpdatedAtInput,
+    TweetOrderByUpdatedAtInput,
     DateTime,
   ],
   outputs: {

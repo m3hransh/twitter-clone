@@ -1,7 +1,8 @@
 export { default as Mutation } from './Mutation';
-export { default as Post } from './Post';
+export { default as Tweet } from './Tweet';
 export { default as Query } from './Query';
 export { default as User } from './User';
+export { default as Profile } from './Profile';
 
 import {
   objectType,
@@ -18,8 +19,8 @@ export const SortOrder = enumType({
   members: ['asc', 'desc'],
 });
 
-export const PostOrderByUpdatedAtInput = inputObjectType({
-  name: 'PostOrderByUpdatedAtInput',
+export const TweetOrderByUpdatedAtInput = inputObjectType({
+  name: 'TweetOrderByUpdatedAtInput',
   definition(t) {
     t.nonNull.field('updatedAt', { type: 'SortOrder' });
   },
@@ -33,10 +34,9 @@ export const UserUniqueInput = inputObjectType({
   },
 });
 
-export const PostCreateInput = inputObjectType({
-  name: 'PostCreateInput',
+export const TweetCreateInput = inputObjectType({
+  name: 'TweetCreateInput',
   definition(t) {
-    t.nonNull.string('title');
     t.string('content');
   },
 });
@@ -46,7 +46,7 @@ export const UserCreateInput = inputObjectType({
   definition(t) {
     t.nonNull.string('email');
     t.string('name');
-    t.list.nonNull.field('posts', { type: 'PostCreateInput' });
+    t.list.nonNull.field('tweets', { type: 'TweetCreateInput' });
   },
 });
 

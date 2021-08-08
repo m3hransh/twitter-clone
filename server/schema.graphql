@@ -13,40 +13,24 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Mutation {
-  createDraft(data: PostCreateInput!): Post
-  deletePost(id: Int!): Post
-  incrementPostViewCount(id: Int!): Post
   login(email: String!, password: String!): AuthPayload
   signup(email: String!, name: String, password: String!): AuthPayload
-  togglePublishPost(id: Int!): Post
 }
 
-type Post {
-  author: User
-  content: String
+type Profile {
+  avatar: String
+  bio: String
   createdAt: DateTime!
   id: Int!
-  published: Boolean!
-  title: String!
-  updatedAt: DateTime!
-  viewCount: Int!
-}
-
-input PostCreateInput {
-  content: String
-  title: String!
-}
-
-input PostOrderByUpdatedAtInput {
-  updatedAt: SortOrder!
+  location: String
+  user: User
+  website: String
 }
 
 type Query {
   allUsers: [User!]!
-  draftsByUser(userUniqueInput: UserUniqueInput!): [Post]
-  feed(orderBy: PostOrderByUpdatedAtInput, searchString: String, skip: Int, take: Int): [Post!]!
   me: User
-  postById(id: Int): Post
+  tweetById(id: Int): Tweet
 }
 
 enum SortOrder {
@@ -54,17 +38,34 @@ enum SortOrder {
   desc
 }
 
+type Tweet {
+  author: User
+  content: String!
+  createdAt: DateTime!
+  id: Int!
+  viewCount: Int!
+}
+
+input TweetCreateInput {
+  content: String
+}
+
+input TweetOrderByUpdatedAtInput {
+  updatedAt: SortOrder!
+}
+
 type User {
   email: String!
   id: Int!
   name: String
-  posts: [Post!]!
+  profile: Profile
+  tweets: [Tweet]!
 }
 
 input UserCreateInput {
   email: String!
   name: String
-  posts: [PostCreateInput!]
+  tweets: [TweetCreateInput!]
 }
 
 input UserUniqueInput {
