@@ -13,8 +13,10 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Mutation {
+  createProfile(data: ProfileCreateInput!): Profile
   login(email: String!, password: String!): AuthPayload
   signup(email: String!, name: String, password: String!): AuthPayload
+  updateProfile(data: ProfileUpdateInput!): Profile
 }
 
 type Profile {
@@ -24,6 +26,21 @@ type Profile {
   id: Int!
   location: String
   user: User
+  website: String
+}
+
+input ProfileCreateInput {
+  avatar: String
+  bio: String
+  location: String
+  website: String
+}
+
+input ProfileUpdateInput {
+  avatar: String
+  bio: String
+  id: Int
+  location: String
   website: String
 }
 

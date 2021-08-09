@@ -50,6 +50,26 @@ export const UserCreateInput = inputObjectType({
   },
 });
 
+export const ProfileCreateInput = inputObjectType({
+  name: 'ProfileCreateInput',
+  definition(t) {
+    t.string('bio');
+    t.string('location');
+    t.string('website');
+    t.string('avatar');
+  },
+});
+export const ProfileUpdateInput = inputObjectType({
+  name: 'ProfileUpdateInput',
+  definition(t) {
+    t.int('id');
+    t.string('bio');
+    t.string('location');
+    t.string('website');
+    t.string('avatar');
+  },
+});
+
 export const AuthPayload = objectType({
   name: 'AuthPayload',
   definition(t) {

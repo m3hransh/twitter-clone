@@ -56,26 +56,53 @@ const Mutation = objectType({
       },
     });
 
-    // t.field('createDraft', {
-    //   type: 'Post',
-    //   args: {
-    //     data: nonNull(
-    //       arg({
-    //         type: 'PostCreateInput',
-    //       }),
-    //     ),
-    //   },
-    //   resolve: (_, args, context: Context) => {
-    //     const userId = getUserId(context);
-    //     return context.prisma.post.create({
-    //       data: {
-    //         title: args.data.title,
-    //         content: args.data.content,
-    //         authorId: userId,
-    //       },
-    //     });
-    //   },
-    // });
+    t.field('createProfile', {
+      type: 'Profile',
+      args: {
+        data: nonNull(
+          arg({
+            type: 'ProfileCreateInput',
+          }),
+        ),
+      },
+      resolve: (_, args, context: Context) => {
+        const userId = getUserId(context);
+        if (!userId) throw new Error('Could not authenticate user.');
+        return context.prisma.profile.create({
+          data: {
+            bio: args.data.bio,
+            location: args.data.location,
+            website: args.data.website,
+            avatar: args.data.avatar,
+            user: { connect: { id: Number(userId) } },
+          },
+        });
+      },
+    });
+
+    t.field('updateProfile', {
+      type: 'Profile',
+      args: {
+        data: nonNull(
+          arg({
+            type: 'ProfileUpdateInput',
+          }),
+        ),
+      },
+      resolve: (_, args, context: Context) => {
+        const userId = getUserId(context);
+        if (!userId) throw new Error('Could not authenticate user.');
+        const { id, ...data } = args.data;
+        return context.prisma.profile.update({
+          data: {
+            ...data,
+          },
+          where: {
+            id: Number(id),
+          },
+        });
+      },
+    });
 
     // t.field('togglePublishPost', {
     //   type: 'Post',
