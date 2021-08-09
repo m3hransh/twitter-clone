@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.root,
-#root,
-#docs-root {
+:root {
     --primary: #55abee;
     --secondary: #fff;
     --accent: #228dcf;
@@ -21,5 +19,11 @@
       border: 2px solid rgb(0, 0, 0, 0.2);
       text-align: center;
       padding: .25rem;
+  }
+  textarea {
+    border: none;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0, 0.2);
+    padding: .25rem;
   }
 }

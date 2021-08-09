@@ -13,6 +13,7 @@ import Landing from './components/Landing';
 import IsAuthenticated from './components/IsAuthenticated';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 
 const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
 const authLink = setContext(async (req, { headers }) => {
@@ -50,6 +51,11 @@ function App() {
           <Route path="/users">
             <IsAuthenticated>
               <Users />
+            </IsAuthenticated>
+          </Route>
+          <Route path="/profile">
+            <IsAuthenticated>
+              <Profile />
             </IsAuthenticated>
           </Route>
           <Route path="/">
