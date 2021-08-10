@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { FC } from 'react';
 import CreateProfile from '../components/CreateProfile';
+import UpdateProfile from '../components/UpdateProfile';
 
 export const ME_QUERY = gql`
   query me {
@@ -17,11 +18,11 @@ export const ME_QUERY = gql`
   }
 `;
 
-interface Me {
+export interface Me {
   me: {
-    id: string;
+    id: number;
     profile: {
-      id: string;
+      id: number;
       bio: string;
       location: string;
       website: string;
@@ -37,8 +38,7 @@ const Profile: FC = () => {
   return (
     <div className=" max-w-2xl flex flex-col items-center  mt-16">
       <h1>Profile</h1>
-      <CreateProfile />
-      {/* {data?.me.Profile.id ?} */}
+      {data?.me.profile.id ? <UpdateProfile /> : <CreateProfile />}
       <p>{data?.me.profile.bio}</p>
       <p>{data?.me.profile.location}</p>
       <p>{data?.me.profile.website}</p>

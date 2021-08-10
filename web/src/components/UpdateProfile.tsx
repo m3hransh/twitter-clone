@@ -1,17 +1,19 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
-import { ME_QUERY } from '../pages/Profile';
+import { Me, ME_QUERY } from '../pages/Profile';
 
-const CREATE_PROFILE_MUTATION = gql`
-  mutation createProfile(
+const UPDATE_PROFILE_MUTATION = gql`
+  mutation updateProfile(
+    $id: Int!
     $bio: String
     $location: String
     $website: String
     $avatar: String
   ) {
-    createProfile(
+    updateProfile(
       data: {
+        id: $id
         bio: $bio
         location: $location
         website: $website
@@ -24,28 +26,33 @@ const CREATE_PROFILE_MUTATION = gql`
 `;
 
 interface ProfileValues {
+  id: number;
   bio: string;
   location: string;
   website: string;
   avatar: string;
 }
 
-const CreateProfile: FC = () => {
-  const [createProfile] = useMutation<any, ProfileValues>(
-    CREATE_PROFILE_MUTATION,
+const UpdateProfile: FC = () => {
+  const { loading, error, data } = useQuery<Me>(ME_QUERY);
+  const [updateProfile] = useMutation<any, ProfileValues>(
+    UPDATE_PROFILE_MUTATION,
     {
       refetchQueries: [{ query: ME_QUERY }],
     },
   );
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
   const initialValues: ProfileValues = {
-    bio: '',
-    location: '',
-    website: '',
-    avatar: '',
+    id: data!.me.profile.id,
+    bio: data!.me.profile.bio,
+    location: data!.me.profile.location,
+    website: data!.me.profile.website,
+    avatar: data!.me.profile.avatar,
   };
-
+  console.log(initialValues);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
@@ -55,7 +62,7 @@ const CreateProfile: FC = () => {
         className="bg-primary rounded-3xl p-2 text-secondary font-bold"
         onClick={openModal}
       >
-        Create Profile
+        Update Profile
       </button>
       {modalIsOpen ? (
         <>
@@ -97,7 +104,7 @@ const CreateProfile: FC = () => {
                       { setSubmitting },
                     ) => {
                       setSubmitting(true);
-                      await createProfile({
+                      await updateProfile({
                         variables: values,
                       });
                       setSubmitting(false);
@@ -128,7 +135,7 @@ const CreateProfile: FC = () => {
                         className="bg-primary rounded-3xl p-2 text-secondary font-bold"
                         type="submit"
                       >
-                        Create Profile
+                        Update Profile
                       </button>
                     </Form>
                   </Formik>
@@ -143,4 +150,4 @@ const CreateProfile: FC = () => {
   );
 };
 
-export default CreateProfile;
+export default UpdateProfile;
