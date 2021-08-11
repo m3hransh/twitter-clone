@@ -11,6 +11,9 @@ module.exports = {
         header: 'var(--header)',
         accent: 'var(--accent)',
       },
+      gridTemplateColumns: {
+        layout: '0.7fr 1.3fr 0.9fr',
+      },
     },
   },
   variants: {

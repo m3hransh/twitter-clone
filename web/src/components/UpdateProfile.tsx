@@ -32,8 +32,12 @@ interface ProfileValues {
   website: string;
   avatar: string;
 }
+interface Props {
+  className?: string;
+  chidlren?: React.ReactNode;
+}
 
-const UpdateProfile: FC = () => {
+const UpdateProfile: FC<Props> = ({ className }) => {
   const { loading, error, data } = useQuery<Me>(ME_QUERY);
   const [updateProfile] = useMutation<any, ProfileValues>(
     UPDATE_PROFILE_MUTATION,
@@ -52,17 +56,16 @@ const UpdateProfile: FC = () => {
     website: data!.me.profile.website,
     avatar: data!.me.profile.avatar,
   };
-  console.log(initialValues);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div>
+    <>
       <button
-        className="bg-primary rounded-3xl p-2 text-secondary font-bold"
+        className={`bg-secondary block rounded-3xl py-2 px-3 text-primary border-2 border-primary font-bold hover:bg-primary hover:text-secondary ${className}`}
         onClick={openModal}
       >
-        Update Profile
+        Edit Profile
       </button>
       {modalIsOpen ? (
         <>
@@ -146,7 +149,7 @@ const UpdateProfile: FC = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-    </div>
+    </>
   );
 };
 

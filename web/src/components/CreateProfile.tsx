@@ -29,8 +29,11 @@ interface ProfileValues {
   website: string;
   avatar: string;
 }
-
-const CreateProfile: FC = () => {
+interface Props {
+  className?: string;
+  children?: React.ReactNode;
+}
+const CreateProfile: FC<Props> = ({ className }) => {
   const [createProfile] = useMutation<any, ProfileValues>(
     CREATE_PROFILE_MUTATION,
     {
@@ -50,9 +53,9 @@ const CreateProfile: FC = () => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div>
+    <>
       <button
-        className="bg-primary rounded-3xl p-2 text-secondary font-bold"
+        className={`bg-secondary block rounded-3xl py-2 px-3 text-primary border-2 border-primary font-bold hover:bg-primary hover:text-secondary ${className}`}
         onClick={openModal}
       >
         Create Profile
@@ -139,7 +142,7 @@ const CreateProfile: FC = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-    </div>
+    </>
   );
 };
 

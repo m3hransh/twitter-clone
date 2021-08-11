@@ -1,5 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { FC } from 'react';
+import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
 import CreateProfile from '../components/CreateProfile';
 import UpdateProfile from '../components/UpdateProfile';
 
@@ -7,6 +9,7 @@ export const ME_QUERY = gql`
   query me {
     me {
       id
+      name
       profile {
         id
         bio
@@ -21,6 +24,7 @@ export const ME_QUERY = gql`
 export interface Me {
   me: {
     id: number;
+    name: string;
     profile: {
       id: number;
       bio: string;
@@ -32,16 +36,62 @@ export interface Me {
 }
 
 const Profile: FC = () => {
+  const history = useHistory();
   const { loading, error, data } = useQuery<Me>(ME_QUERY);
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h3>{error.message}</h3>;
   return (
-    <div className=" max-w-2xl flex flex-col items-center  mt-16">
-      <h1>Profile</h1>
-      {data?.me.profile.id ? <UpdateProfile /> : <CreateProfile />}
-      <p>{data?.me.profile.bio}</p>
-      <p>{data?.me.profile.location}</p>
-      <p>{data?.me.profile.website}</p>
+    <div className=" flex flex-col  mx-12 md:grid md:grid-cols-layout">
+      {/* Left */}
+      <div className="sticky">Left Nav</div>
+      {/* Profile */}
+      <div className="border-r-2 border-l-2 border-b-8">
+        {/* Profile Info */}
+        <div>
+          {/* Profile head  */}
+          <div className=" p-2 flex space-x-2 items-baseline">
+            <FaArrowLeft
+              onClick={() => history.goBack()}
+              className="inline text-primary"
+            />
+            {/* NickName */}
+            <h3>{data?.me.name}</h3>
+          </div>
+          {/* Profile Body */}
+          <div className="px-4">
+            <div className="mt-5">
+              <FaUser className="inline w-14 h-14" />
+            </div>
+            {/* Make Profile */}
+            <div className="felx">
+              {data?.me.profile ? (
+                <UpdateProfile className="ml-auto" />
+              ) : (
+                <CreateProfile className="ml-auto" />
+              )}
+            </div>
+            <h3 className="text-xl font-bold">{data?.me.name}</h3>
+            {data?.me.profile ? (
+              <p className="mt-3 space-x-2">
+                <FaLink className="inline" />
+                <Link
+                  to={{ pathname: `http://${data.me.profile.website}` }}
+                  target="_blank"
+                >
+                  {data.me.profile.website}
+                </Link>
+              </p>
+            ) : null}
+            {/* Followers  */}
+            <div className="flex mt-3 space-x-3">
+              <p>200 following</p>
+              <p>200 followers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* right */}
+      <div>Right</div>
     </div>
   );
 };
