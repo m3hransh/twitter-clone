@@ -69,7 +69,7 @@ const Login: FC = () => {
       </Formik>
       <div className="mt-14">
         <h4 className="font-bold">Don't have an account?</h4>
-        <Link className="text-accent" to="/signup">
+        <Link className="text-main" to="/signup">
           Sign up
         </Link>
       </div>

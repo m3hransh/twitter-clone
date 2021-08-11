@@ -50,7 +50,7 @@ const Signup: FC = () => {
   return (
     <div className="mx-auto max-w-lg w-1/2 flex flex-col items-center text-center mt-16">
       <img src={TwitterLogo} alt="logo" className="w-12" />
-      <h1 className="text-xl font-bold">Signup </h1>
+      <h1 className="text-xl font-bold">Sign up </h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -88,7 +88,7 @@ const Signup: FC = () => {
       </Formik>
       <div className="mt-14">
         <h4 className="font-bold">Already have an account?</h4>
-        <Link className="text-accent" to="/login">
+        <Link className="text-main font-medium" to="/login">
           Login
         </Link>
       </div>

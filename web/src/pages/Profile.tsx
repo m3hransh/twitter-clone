@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import CreateProfile from '../components/CreateProfile';
+import LeftNav from '../components/LeftNav';
 import UpdateProfile from '../components/UpdateProfile';
 
 export const ME_QUERY = gql`
@@ -41,11 +42,13 @@ const Profile: FC = () => {
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h3>{error.message}</h3>;
   return (
-    <div className=" flex flex-col  mx-12 md:grid md:grid-cols-layout">
+    <div className="flex flex-col md:grid sm:grid-cols-layout">
       {/* Left */}
-      <div className="sticky">Left Nav</div>
+      <div className="sticky">
+        <LeftNav />
+      </div>
       {/* Profile */}
-      <div className="border-r-2 border-l-2 border-b-8">
+      <div className="sm:border-r-2 sm:border-l-2 border-b-8">
         {/* Profile Info */}
         <div>
           {/* Profile head  */}
@@ -55,12 +58,20 @@ const Profile: FC = () => {
               className="inline text-primary"
             />
             {/* NickName */}
-            <h3>{data?.me.name}</h3>
+            <h3 className="text-xl font-bold">{data?.me.name}</h3>
           </div>
           {/* Profile Body */}
           <div className="px-4">
             <div className="mt-5">
-              <FaUser className="inline w-14 h-14" />
+              {data?.me.profile.avatar ? (
+                <img
+                  src={data.me.profile.avatar}
+                  className="w-36 rounded-full"
+                  alt="avatar"
+                />
+              ) : (
+                <FaUser className="inline w-14 h-14" />
+              )}
             </div>
             {/* Make Profile */}
             <div className="felx">

@@ -1,6 +1,8 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ChangeEvent, useRef } from 'react';
 import { FC, useState } from 'react';
+import { FaUser } from 'react-icons/fa';
 import { Me, ME_QUERY } from '../pages/Profile';
 
 const UPDATE_PROFILE_MUTATION = gql`
@@ -38,6 +40,9 @@ interface Props {
 }
 
 const UpdateProfile: FC<Props> = ({ className }) => {
+  const inputFile = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState('');
+  const [imageLoading, setImageLoading] = useState(false);
   const { loading, error, data } = useQuery<Me>(ME_QUERY);
   const [updateProfile] = useMutation<any, ProfileValues>(
     UPDATE_PROFILE_MUTATION,
@@ -58,6 +63,26 @@ const UpdateProfile: FC<Props> = ({ className }) => {
   };
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    const data = new FormData();
+    if (files) {
+      data.append('file', files[0]);
+      data.append('upload_preset', 'twitter');
+      setImageLoading(true);
+      const res = await fetch(
+        process.env.REACT_APP_CLOUDINARY_ENDPOINT as string,
+        {
+          method: 'POST',
+          body: data,
+        },
+      );
+      const file = await res.json();
+      setImage(file.secure_url);
+      setImageLoading(false);
+    }
+  };
 
   return (
     <>
@@ -88,6 +113,42 @@ const UpdateProfile: FC<Props> = ({ className }) => {
                   rounded-t"
                 >
                   {/* <h3 className="text-3xl font-semibold">Modal Title</h3> */}
+                  <input
+                    type="file"
+                    name="file"
+                    placeholder="upload file"
+                    onChange={uploadImage}
+                    ref={inputFile}
+                    className="hidden"
+                  />
+                  {imageLoading ? (
+                    <h3>Loadding...</h3>
+                  ) : (
+                    <>
+                      {image ? (
+                        <span onClick={() => inputFile.current?.click()}>
+                          <img
+                            src={image}
+                            className="w-36 rounded-full"
+                            alt="avatar"
+                          />
+                        </span>
+                      ) : data?.me.profile.avatar ? (
+                        <span onClick={() => inputFile.current?.click()}>
+                          <img
+                            src={data.me.profile.avatar}
+                            className="w-36 rounded-full"
+                            alt="avatar"
+                          />
+                        </span>
+                      ) : (
+                        <FaUser
+                          onClick={() => inputFile.current?.click()}
+                          className="inline w-14 h-14"
+                        />
+                      )}
+                    </>
+                  )}
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={closeModal}
@@ -108,7 +169,7 @@ const UpdateProfile: FC<Props> = ({ className }) => {
                     ) => {
                       setSubmitting(true);
                       await updateProfile({
-                        variables: values,
+                        variables: { ...values, avatar: image },
                       });
                       setSubmitting(false);
                       closeModal();
