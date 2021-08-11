@@ -12,7 +12,8 @@ module.exports = {
         accent: 'var(--accent)',
       },
       gridTemplateColumns: {
-        layout: '0.7fr 1.3fr 0.9fr',
+        layout: 'minmax(12rem,0.5fr) 1.5fr 0.8fr',
+        layoutmd: '1fr minmax(16rem, .5fr)',
       },
     },
   },

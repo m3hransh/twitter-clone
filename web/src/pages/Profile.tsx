@@ -42,13 +42,13 @@ const Profile: FC = () => {
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h3>{error.message}</h3>;
   return (
-    <div className="flex flex-col md:grid sm:grid-cols-layout">
+    <div className="flex flex-col mx-auto max-w-5xl md:grid lg:grid-cols-layout md:grid-cols-layoutmd">
       {/* Left */}
-      <div className="sticky">
+      <div className="sticky hidden lg:block">
         <LeftNav />
       </div>
       {/* Profile */}
-      <div className="sm:border-r-2 sm:border-l-2 border-b-8">
+      <div className="md:border-r-2 md:border-l-2 border-b-8">
         {/* Profile Info */}
         <div>
           {/* Profile head  */}
@@ -102,7 +102,7 @@ const Profile: FC = () => {
         </div>
       </div>
       {/* right */}
-      <div>Right</div>
+      <div className="bg-accent">Right</div>
     </div>
   );
 };
