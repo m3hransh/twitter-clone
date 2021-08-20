@@ -104,6 +104,27 @@ const Mutation = objectType({
       },
     });
 
+    t.field('createTweet', {
+      type: 'Tweet',
+      args: {
+        data: nonNull(
+          arg({
+            type: 'TweetCreateInput',
+          }),
+        ),
+      },
+      resolve: (_, args, context: Context) => {
+        const userId = getUserId(context);
+        if (!userId) throw new Error('Could not authenticate user.');
+        if (!args.data.content) throw new Error('Content is empty');
+        return context.prisma.tweet.create({
+          data: {
+            content: args.data.content,
+            author: { connect: { id: Number(userId) } },
+          },
+        });
+      },
+    });
     // t.field('togglePublishPost', {
     //   type: 'Post',
     //   args: {

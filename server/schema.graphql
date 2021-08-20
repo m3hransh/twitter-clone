@@ -14,6 +14,7 @@ scalar DateTime
 
 type Mutation {
   createProfile(data: ProfileCreateInput!): Profile
+  createTweet(data: TweetCreateInput!): Tweet
   login(email: String!, password: String!): AuthPayload
   signup(email: String!, name: String, password: String!): AuthPayload
   updateProfile(data: ProfileUpdateInput!): Profile
