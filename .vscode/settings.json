@@ -14,10 +14,22 @@
     {
       "splitTerminals": [
         {
-          "name": "server",
+          "name": "db",
           "commands": [
             "cd server",
             "docker-compose up -d",
+            "clear",
+            "docker exec -it twitter-db psql -U mehran twitter-clone",
+          ]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "server",
+          "commands": [
+            "cd server",
             "clear",
             "yarn dev",
           ]
