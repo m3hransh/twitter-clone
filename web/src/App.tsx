@@ -14,6 +14,7 @@ import IsAuthenticated from './components/IsAuthenticated';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Home from './pages/Home';
 
 const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
 const authLink = setContext(async (req, { headers }) => {
@@ -59,7 +60,7 @@ function App() {
             </IsAuthenticated>
           </Route>
           <Route path="/">
-            <Users />
+            <Home />
           </Route>
         </Switch>
       </Router>

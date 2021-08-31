@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   FaBell,
   FaEllipsisH,
@@ -9,9 +9,15 @@ import {
 import { Link } from 'react-router-dom';
 import favicon from '../assets/twitter-logo.png';
 import Logout from './Logout';
+import Modal from './Modal';
 import Tweet from './Tweet';
 
 const LeftNav: FC = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   return (
     <div className="ml-auto flex h-screen flex-col pt-4 lg:text-lg ">
       <div className="flex flex-col space-y-4 items-start">
@@ -49,11 +55,17 @@ const LeftNav: FC = () => {
           </h2>
         </Link>
       </div>
-      <Tweet
+      <button
         className="bg-primary mt-4 border-2 border-primary rounded-3xl 
       py-2 w-4/5 text-secondary text-lg font-bold hover:bg-secondary 
       hover:text-primary"
-      />
+        onClick={openModal}
+      >
+        Tweet
+      </button>
+      <Modal modalIsOpen={modalIsOpen} closeModal={closeModal}>
+        <Tweet onTweet={closeModal} />
+      </Modal>
       <Logout className="mt-auto mb-4" />
     </div>
   );

@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import CreateProfile from '../components/CreateProfile';
+import Layout from '../components/Layout';
 import LeftNav from '../components/LeftNav';
 import UpdateProfile from '../components/UpdateProfile';
 
@@ -42,68 +43,59 @@ const Profile: FC = () => {
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h3>{error.message}</h3>;
   return (
-    <div className="flex flex-col mx-auto max-w-5xl md:grid lg:grid-cols-layout md:grid-cols-layoutmd">
-      {/* Left */}
-      <div className="sticky hidden lg:block">
-        <LeftNav />
-      </div>
-      {/* Profile */}
-      <div className="md:border-r-2 md:border-l-2 border-b-8">
-        {/* Profile Info */}
-        <div>
-          {/* Profile head  */}
-          <div className=" p-2 flex space-x-2 items-baseline">
-            <FaArrowLeft
-              onClick={() => history.goBack()}
-              className="inline text-primary"
-            />
-            {/* NickName */}
-            <h3 className="text-xl font-bold">{data?.me.name}</h3>
+    <Layout>
+      {/* Profile Info */}
+      <div>
+        {/* Profile head  */}
+        <div className=" p-2 flex space-x-2 items-baseline">
+          <FaArrowLeft
+            onClick={() => history.goBack()}
+            className="inline text-primary"
+          />
+          {/* NickName */}
+          <h3 className="text-xl font-bold">{data?.me.name}</h3>
+        </div>
+        {/* Profile Body */}
+        <div className="px-4">
+          <div className="mt-5">
+            {data?.me.profile.avatar ? (
+              <img
+                src={data.me.profile.avatar}
+                className="w-36 rounded-full"
+                alt="avatar"
+              />
+            ) : (
+              <FaUser className="inline w-14 h-14" />
+            )}
           </div>
-          {/* Profile Body */}
-          <div className="px-4">
-            <div className="mt-5">
-              {data?.me.profile.avatar ? (
-                <img
-                  src={data.me.profile.avatar}
-                  className="w-36 rounded-full"
-                  alt="avatar"
-                />
-              ) : (
-                <FaUser className="inline w-14 h-14" />
-              )}
-            </div>
-            {/* Make Profile */}
-            <div className="felx">
-              {data?.me.profile ? (
-                <UpdateProfile className="ml-auto" />
-              ) : (
-                <CreateProfile className="ml-auto" />
-              )}
-            </div>
-            <h3 className="text-xl font-bold">{data?.me.name}</h3>
+          {/* Make Profile */}
+          <div className="felx">
             {data?.me.profile ? (
-              <p className="mt-3 space-x-2">
-                <FaLink className="inline" />
-                <Link
-                  to={{ pathname: `http://${data.me.profile.website}` }}
-                  target="_blank"
-                >
-                  {data.me.profile.website}
-                </Link>
-              </p>
-            ) : null}
-            {/* Followers  */}
-            <div className="flex mt-3 space-x-3">
-              <p>200 following</p>
-              <p>200 followers</p>
-            </div>
+              <UpdateProfile className="ml-auto" />
+            ) : (
+              <CreateProfile className="ml-auto" />
+            )}
+          </div>
+          <h3 className="text-xl font-bold">{data?.me.name}</h3>
+          {data?.me.profile ? (
+            <p className="mt-3 space-x-2">
+              <FaLink className="inline" />
+              <Link
+                to={{ pathname: `http://${data.me.profile.website}` }}
+                target="_blank"
+              >
+                {data.me.profile.website}
+              </Link>
+            </p>
+          ) : null}
+          {/* Followers  */}
+          <div className="flex mt-3 space-x-3">
+            <p>200 following</p>
+            <p>200 followers</p>
           </div>
         </div>
       </div>
-      {/* right */}
-      <div className="bg-accent">Right</div>
-    </div>
+    </Layout>
   );
 };
 
