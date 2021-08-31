@@ -17,8 +17,7 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 
 const httpLink = new HttpLink({
-  uri:
-    process.env.SERVER_URL || 'http://mehran-twitter-clone.herokuapp.com',
+  uri: 'http://mehran-twitter-clone.herokuapp.com',
 });
 const authLink = setContext(async (req, { headers }) => {
   const token = localStorage.getItem('token');
