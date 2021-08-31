@@ -47,6 +47,7 @@ input ProfileUpdateInput {
 
 type Query {
   allUsers: [User!]!
+  feed(orderBy: TweetOrderByUpdatedAtInput, searchString: String, skip: Int, take: Int): [Tweet!]!
   me: User
   tweetById(id: Int): Tweet
 }

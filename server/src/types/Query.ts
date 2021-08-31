@@ -36,35 +36,33 @@ const Query = objectType({
       },
     });
 
-    // t.nonNull.list.nonNull.field('feed', {
-    //   type: 'tweet',
-    //   args: {
-    //     searchString: stringArg(),
-    //     skip: intArg(),
-    //     take: intArg(),
-    //     orderBy: arg({
-    //       type: 'PostOrderByUpdatedAtInput',
-    //     }),
-    //   },
-    //   resolve: (_parent, args, context: Context) => {
-    //     const or = args.searchString
-    //       ? {
-    //           OR: [
-    //             { content: { contains: args.searchString } },
-    //           ],
-    //         }
-    //       : {};
+    t.nonNull.list.nonNull.field('feed', {
+      type: 'Tweet',
+      args: {
+        searchString: stringArg(),
+        skip: intArg(),
+        take: intArg(),
+        orderBy: arg({
+          type: 'TweetOrderByUpdatedAtInput',
+        }),
+      },
+      resolve: (_parent, args, context: Context) => {
+        // const or = args.searchString
+        //   ? {
+        //       OR: [{ content: { contains: args.searchString } }],
+        //     }
+        //   : {};
 
-    //     return context.prisma.post.findMany({
-    //       where: {
-    //         content: {contains: args.searchString}
-    //       },
-    //       take: args.take || undefined,
-    //       skip: args.skip || undefined,
-    //       orderBy: args.orderBy || undefined,
-    //     });
-    //   },
-    // });
+        return context.prisma.tweet.findMany({
+          where: {
+            content: { contains: args.searchString || '' },
+          },
+          take: args.take || undefined,
+          skip: args.skip || undefined,
+          orderBy: args.orderBy || undefined,
+        });
+      },
+    });
   },
 });
 

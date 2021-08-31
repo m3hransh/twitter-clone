@@ -1,0 +1,34 @@
+version: "3.5"
+
+services: 
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - '5432:5432'
+    volumes: 
+      - postgres_prod:/var/lib/postgresql
+    networks: 
+      - twitter
+      
+  server:
+    build: .
+    env_file: .env.production
+    ports:
+      - '${PORT}:4000'
+    depends_on: 
+      - db
+    networks: 
+      - twitter
+
+
+volumes: 
+  postgres_prod:
+
+
+networks: 
+  twitter:
+    name: 'twitter-net'

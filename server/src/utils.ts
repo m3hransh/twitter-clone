@@ -9,9 +9,11 @@ interface Token {
 
 export function getUserId(context: Context) {
   const authHeader = context.req.get('Authorization');
+  console.log(`authHeader: ${authHeader}`);
   if (authHeader) {
     const token = authHeader.replace('Bearer ', '');
     const verifiedToken = verify(token, APP_SECRET) as Token;
+    console.log(`user: ${verifiedToken.userId}`);
     return verifiedToken && Number(verifiedToken.userId);
   }
 }
