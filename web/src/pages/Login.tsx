@@ -51,7 +51,7 @@ const Login: FC = () => {
           console.log(response);
           localStorage.setItem('token', response.data.login.token);
           setSubmitting(false);
-          history.push('/users');
+          history.push('/');
         }}
       >
         <Form className="w-full flex flex-col space-y-5 mt-3">
@@ -60,7 +60,7 @@ const Login: FC = () => {
           <Field name="password" type="password" placeholder="Password" />
           <ErrorMessage name="password" component={'div'} />
           <button
-            className="bg-primary rounded-3xl p-2 text-secondary font-bold"
+            className="bg-primary rounded-3xl p-2 text-white font-bold"
             type="submit"
           >
             <span className="">Login</span>

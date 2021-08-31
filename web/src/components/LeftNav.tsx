@@ -24,7 +24,7 @@ const LeftNav: FC = () => {
         <Link to="/users">
           <img src={favicon} alt="logo" className="w-10 h-10" />
         </Link>
-        <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="/" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaHome className="inline mr-3" />
             <span>Home</span>
@@ -36,13 +36,13 @@ const LeftNav: FC = () => {
             <span>Profile</span>
           </h2>
         </Link>
-        <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaEnvelope className="inline mr-3" />
             <span>Messages</span>
           </h2>
         </Link>
-        <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaBell className="inline mr-3" />
             <span>Notifications</span>

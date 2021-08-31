@@ -15,8 +15,7 @@ const IS_LOGGED_IN = gql`
 const IsAuthenticated: FC = ({ children }) => {
   const { loading, error, data } = useQuery(IS_LOGGED_IN);
   if (loading) return <Loading />;
-  if (error) return <p>{error.message}</p>;
-  if (!data.me) return <Redirect to={{ pathname: '/landing' }} />;
+  if (error || !data.me) return <Redirect to={{ pathname: '/landing' }} />;
 
   return <>{children}</>;
 };

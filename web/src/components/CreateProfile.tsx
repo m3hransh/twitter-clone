@@ -54,10 +54,7 @@ const CreateProfile: FC<Props> = ({ className }) => {
 
   return (
     <>
-      <button
-        className={`bg-secondary block rounded-3xl py-2 px-3 text-primary border-2 border-primary font-bold hover:bg-primary hover:text-secondary ${className}`}
-        onClick={openModal}
-      >
+      <button className={className} onClick={openModal}>
         Create Profile
       </button>
       {modalIsOpen ? (
@@ -128,7 +125,7 @@ const CreateProfile: FC<Props> = ({ className }) => {
                       />
                       <ErrorMessage name="website" component={'div'} />
                       <button
-                        className="bg-primary rounded-3xl p-2 text-secondary font-bold"
+                        className="bg-primary rounded-3xl p-2 text-white font-bold"
                         type="submit"
                       >
                         Create Profile
