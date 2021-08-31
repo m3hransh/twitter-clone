@@ -1,8 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { FC } from 'react';
 import { FaUser } from 'react-icons/fa';
-// import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
-import { Link, useHistory } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Tweet from '../components/Tweet';
 
@@ -42,7 +40,6 @@ export interface Feed {
 
 const Home: FC = () => {
   const { loading, error, data } = useQuery<Feed>(FEED_QUERY);
-  const history = useHistory();
   if (loading) return <p>Loadding...</p>;
   if (error) return <h3>{error.message}</h3>;
 

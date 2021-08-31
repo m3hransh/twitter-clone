@@ -4,7 +4,6 @@ import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import CreateProfile from '../components/CreateProfile';
 import Layout from '../components/Layout';
-import LeftNav from '../components/LeftNav';
 import UpdateProfile from '../components/UpdateProfile';
 
 export const ME_QUERY = gql`
