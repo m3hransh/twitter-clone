@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { FC } from 'react';
-import { FaArrowLeft, FaLink, FaUser } from 'react-icons/fa';
+import { FaArrowLeft, FaLink } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import CreateProfile from '../components/CreateProfile';
 import Layout from '../components/Layout';
