@@ -2,6 +2,7 @@ import { FC } from 'react';
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Redirect } from 'react-router';
+import Loading from './Loading';
 
 const IS_LOGGED_IN = gql`
   {
@@ -13,7 +14,7 @@ const IS_LOGGED_IN = gql`
 
 const IsAuthenticated: FC = ({ children }) => {
   const { loading, error, data } = useQuery(IS_LOGGED_IN);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>{error.message}</p>;
   if (!data.me) return <Redirect to={{ pathname: '/landing' }} />;
 

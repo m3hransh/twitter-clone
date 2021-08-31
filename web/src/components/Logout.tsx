@@ -5,7 +5,9 @@ import { useHistory } from 'react-router-dom';
 import { ME_QUERY } from '../pages/Profile';
 import { createPopper } from '@popperjs/core';
 import { createRef } from 'react';
-import { FaCheck, FaEllipsisH, FaUser } from 'react-icons/fa';
+import { FaCheck, FaEllipsisH } from 'react-icons/fa';
+import Loading from './Loading';
+import { IoPersonCircleOutline } from 'react-icons/io5';
 
 interface LogoutProps {
   className?: string;
@@ -19,7 +21,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
   const popoverDropdownRef = createRef<HTMLDivElement>();
 
   const { loading, error, data } = useQuery(ME_QUERY);
-  if (loading) return <p>Loadding...</p>;
+  if (loading) return <Loading />;
   if (error) return <h3>{error.message}</h3>;
 
   const handleLogout = async () => {
@@ -55,14 +57,14 @@ const Logout: FC<LogoutProps> = ({ className }) => {
                 : openDropdownPopover();
             }}
           >
-            {data?.me.profile.avatar ? (
+            {data?.me.profile && data?.me.profile.avatar ? (
               <img
                 src={data.me.profile.avatar}
                 className="max-h-10 rounded-full"
                 alt="avatar"
               />
             ) : (
-              <FaUser className="inline w-14 h-14" />
+              <IoPersonCircleOutline className="inline w-14 h-14" />
             )}
             <h3 className="font-bold">{data?.me.name}</h3>
             <FaEllipsisH className="inline mr-3" />
@@ -77,14 +79,14 @@ const Logout: FC<LogoutProps> = ({ className }) => {
             style={{ minWidth: '12rem' }}
           >
             <div className="flex p-4 items-center">
-              {data?.me.profile.avatar ? (
+              {data?.me.profile && data?.me.profile.avatar ? (
                 <img
                   src={data.me.profile.avatar}
                   className="max-h-10 rounded-full"
                   alt="avatar"
                 />
               ) : (
-                <FaUser className="inline w-14 h-14" />
+                <IoPersonCircleOutline className="inline w-14 h-14" />
               )}
               <h3 className="font-bold ml-2">{data?.me.name}</h3>
               <FaCheck className="inline ml-auto text-primary" />

@@ -16,7 +16,10 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
+const httpLink = new HttpLink({
+  uri:
+    process.env.SERVER_URL || 'http://mehran-twitter-clone.herokuapp.com',
+});
 const authLink = setContext(async (req, { headers }) => {
   const token = localStorage.getItem('token');
 
@@ -60,7 +63,9 @@ function App() {
             </IsAuthenticated>
           </Route>
           <Route path="/">
-            <Home />
+            <IsAuthenticated>
+              <Home />
+            </IsAuthenticated>
           </Route>
         </Switch>
       </Router>

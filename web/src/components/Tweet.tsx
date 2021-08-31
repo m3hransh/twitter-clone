@@ -4,6 +4,8 @@ import React, { FC } from 'react';
 import { ME_QUERY } from '../pages/Profile';
 import * as Yup from 'yup';
 import { FaUser } from 'react-icons/fa';
+import Loading from './Loading';
+import { FEED_QUERY } from '../pages/Home';
 
 const CREATE_TWEET_MUTATION = gql`
   mutation createTweet($content: String) {
@@ -34,13 +36,13 @@ const Tweet: FC<TweetProps> = ({ onTweet, user }) => {
   const { loading, error, data } = useQuery(ME_QUERY);
 
   const [createTweet] = useMutation(CREATE_TWEET_MUTATION, {
-    refetchQueries: [{ query: ME_QUERY }],
+    refetchQueries: [{ query: ME_QUERY }, { query: FEED_QUERY }],
   });
 
   const initialValues: TweetValues = {
     content: '',
   };
-  if (loading) return <p>Loadding...</p>;
+  if (loading) return <Loading />;
   if (error) return <h3>{error.message}</h3>;
 
   const validationSchema = Yup.object({
@@ -65,7 +67,7 @@ const Tweet: FC<TweetProps> = ({ onTweet, user }) => {
         <Form className="w-full flex flex-col p-4 space-y-5 mt-3">
           <div className="flex">
             <div className="flex-grow-0">
-              {data.me.profile.avatar ? (
+              {data.me.profile && data.me.profile.avatar ? (
                 <img
                   src={data.me.profile.avatar}
                   className="w-14 rounded-full"
@@ -89,8 +91,8 @@ const Tweet: FC<TweetProps> = ({ onTweet, user }) => {
               {(msg) => <div className="text-red-500 ml-20">{msg}</div>}
             </ErrorMessage>
             <button
-              className="bg-primary rounded-3xl p-2 px-5 text-secondary 
-              font-bold ml-auto"
+              className="bg-primary rounded-3xl p-2 px-5 text-white 
+              font-bold ml-auto hover:bg-secondary"
               type="submit"
             >
               Tweet

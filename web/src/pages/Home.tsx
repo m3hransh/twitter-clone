@@ -56,9 +56,9 @@ const Home: FC = () => {
       <div className="flex flex-col">
         {data?.feed.map((tweet) => (
           <div className="border-b-2 border-opacity-95 border-gray-200 hover:bg-accent h-48">
-            <div className="flex">
+            <div className="flex gap-2 p-3">
               <div className="flex-grow-0">
-                {tweet.author.profile.avatar ? (
+                {tweet.author.profile && tweet.author.profile.avatar ? (
                   <img
                     src={tweet.author.profile.avatar}
                     className="w-14 rounded-full"
@@ -68,7 +68,18 @@ const Home: FC = () => {
                   <FaUser className="inline w-14 h-14 bg-gray-200 rounded-full" />
                 )}
               </div>
-              <div className="flex-grow">{tweet.content}</div>
+              <div className="flex-grow">
+                <div className="flex flex-col">
+                  <div>
+                    <span className="font-bold">{tweet.author.name} </span>
+                    <span className="text-gray-500">
+                      @{tweet.author.name}
+                      {tweet.author.id}
+                    </span>
+                  </div>
+                  <div>{tweet.content}</div>
+                </div>
+              </div>
             </div>
           </div>
         ))}

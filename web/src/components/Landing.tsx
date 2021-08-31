@@ -7,7 +7,7 @@ const Landing: FC = () => {
     <div className="flex flex-col h-screen">
       <div className="flex justify-center h-full">
         {/* left */}
-        <div className="w-1/2 flex flex-col items-center justify-center bg-primary text-secondary">
+        <div className="w-1/2 flex text-2xl flex-col items-center justify-center bg-primary text-secondary">
           {/* items-wraper */}
           <div className=" flex flex-col space-y-5 w-3/5">
             <div>
@@ -27,8 +27,8 @@ const Landing: FC = () => {
         {/* center */}
         <div className="w-1/2 flex flex-col items-center justify-center">
           <div className="w-3/5">
-            <img src={TwitterLogo} alt="logo" className="w-12" />
-            <h1 className="text-xl font-bold my-4">
+            <img src={TwitterLogo} alt="logo" className="w-24" />
+            <h1 className="text-3xl font-bold my-4">
               See what's happening in
               <br />
               the world right now

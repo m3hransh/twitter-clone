@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
     .required('Email Required'),
   password: Yup.string()
     .max(20, 'Must be 20 characters or less')
-    .required('Email Required'),
+    .required('Password Required'),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref('password'), null],
     'Password must match',

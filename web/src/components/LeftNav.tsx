@@ -56,9 +56,9 @@ const LeftNav: FC = () => {
         </Link>
       </div>
       <button
-        className="bg-primary mt-4 border-2 border-primary rounded-3xl 
-      py-2 w-4/5 text-secondary text-lg font-bold hover:bg-secondary 
-      hover:text-primary"
+        className="bg-primary mt-4 border-0 border-primary rounded-3xl 
+      py-2 w-11/12 text-white text-lg font-bold hover:bg-secondary 
+      "
         onClick={openModal}
       >
         Tweet
