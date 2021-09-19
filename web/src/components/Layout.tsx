@@ -9,17 +9,17 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
-      <div className="flex flex-col mx-auto max-w-6xl md:grid lg:grid-cols-layout md:grid-cols-layoutmd">
+      <div className="flex justify-items-stretch mx-auto max-w-6xl lg:grid lg:grid-cols-layout ">
         {/* Left */}
-        <div className="sticky hidden lg:block">
+        <div className="sticky w-14 lg:w-auto  h-screen top-0 ">
           <LeftNav />
         </div>
         {/* middle */}
-        <div className="md:border-r-2 md:border-l-2 border-b-8">
+        <div className=" w-full max-w-xl lg:max-w-none lg:w-auto md:border-r-2 md:border-l-2 border-b-8">
           {children}
         </div>
         {/* right */}
-        <div className="bg-accent">Right</div>
+        <div className="bg-accent hidden md:block flex-1">Right</div>
       </div>
     </div>
   );

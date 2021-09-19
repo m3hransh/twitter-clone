@@ -5,9 +5,9 @@ import TwitterLogo from '../assets/twitter-logo.png';
 const Landing: FC = () => {
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex justify-center h-full">
+      <div className="flex flex-col-reverse gap-4 sm:items-stretch sm:flex-row h-full">
         {/* left */}
-        <div className="w-1/2 flex text-2xl flex-col items-center justify-center bg-primary text-white">
+        <div className="sm:w-1/2 flex sm:text-2xl flex-grow text-lg flex-col items-center justify-center bg-primary text-white">
           {/* items-wraper */}
           <div className=" flex flex-col space-y-5 w-3/5">
             <div>
@@ -25,15 +25,11 @@ const Landing: FC = () => {
           </div>
         </div>
         {/* center */}
-        <div className="w-1/2 flex flex-col items-center justify-center">
+        <div className="sm:w-1/2 flex flex-col flex-none items-center justify-center">
           <div className="w-3/5">
-            <img src={TwitterLogo} alt="logo" className="w-24" />
-            <h1 className="text-3xl font-bold my-4">
-              See what's happening in
-              <br />
-              the world right now
-            </h1>
-            <span> Join twitter Today</span>
+            <img src={TwitterLogo} alt="logo" className="w-20" />
+            <h1 className="text-3xl font-bold my-4">Happening now</h1>
+            <span className="text-xl font-bold"> Join twitter Today</span>
             <div className="flex flex-col mt-3 space-y-4">
               <Link
                 className="text-center bg-primary rounded-3xl p-2  text-white font-bold hover:bg-secondary"

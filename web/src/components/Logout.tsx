@@ -66,8 +66,8 @@ const Logout: FC<LogoutProps> = ({ className }) => {
             ) : (
               <IoPersonCircleOutline className="inline w-14 h-14" />
             )}
-            <h3 className="font-bold">{data?.me.name}</h3>
-            <FaEllipsisH className="inline mr-3" />
+            <h3 className="font-bold hidden lg:inline">{data?.me.name}</h3>
+            <FaEllipsisH className=" mr-3 hidden lg:inline" />
           </button>
           <div
             ref={popoverDropdownRef}

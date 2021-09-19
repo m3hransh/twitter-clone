@@ -1,9 +1,10 @@
 import { useMutation, gql } from '@apollo/client';
 import { FC } from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 import TwitterLogo from '../assets/twitter-logo.png';
+import ErrorMessage from '../components/ErrorMessage';
 
 const SIGNUP_MUTATION = gql`
   mutation signup($name: String, $email: String!, $password: String!) {
@@ -48,7 +49,7 @@ const Signup: FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-lg w-1/2 flex flex-col items-center text-center mt-16">
+    <div className="mx-auto max-w-lg w-3/4 flex flex-col items-center text-center mt-16">
       <img src={TwitterLogo} alt="logo" className="w-12" />
       <h1 className="text-xl font-bold">Sign up </h1>
       <Formik
@@ -65,26 +66,62 @@ const Signup: FC = () => {
           history.push('/');
         }}
       >
-        <Form className="w-full flex flex-col space-y-5 mt-3">
-          <Field name="email" type="text" placeholder="Email" />
-          <ErrorMessage name="email" component={'div'} />
-          <Field name="name" type="text" placeholder="Name" />
-          <ErrorMessage name="name" component={'div'} />
-          <Field name="password" type="password" placeholder="Password" />
-          <ErrorMessage name="password" component={'div'} />
-          <Field
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <ErrorMessage name="confirmPassword" component={'div'} />
-          <button
-            className="bg-primary rounded-3xl p-2 text-white font-bold"
-            type="submit"
-          >
-            Sign up
-          </button>
-        </Form>
+        {({ errors, touched }) => (
+          <Form className="w-full flex flex-col space-y-1 mt-3">
+            <Field
+              name="email"
+              type="text"
+              placeholder="Email"
+              className={
+                errors.email && touched.email && `border-2 border-red-600`
+              }
+            />
+            <ErrorMessage error={errors.email} touched={touched.email} />
+            <Field
+              name="name"
+              type="text"
+              placeholder="Name"
+              className={
+                errors.name && touched.name && `border-2 border-red-600`
+              }
+            />
+            <ErrorMessage error={errors.name} touched={touched.name} />
+            <Field
+              name="password"
+              type="password"
+              placeholder="Password"
+              className={
+                errors.password &&
+                touched.password &&
+                `border-2 border-red-600`
+              }
+            />
+            <ErrorMessage
+              error={errors.password}
+              touched={touched.password}
+            />
+            <Field
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              className={
+                errors.confirmPassword &&
+                touched.confirmPassword &&
+                `border-2 border-red-600`
+              }
+            />
+            <ErrorMessage
+              error={errors.confirmPassword}
+              touched={touched.confirmPassword}
+            />
+            <button
+              className="bg-primary rounded-3xl p-2 text-white font-bold"
+              type="submit"
+            >
+              Sign up
+            </button>
+          </Form>
+        )}
       </Formik>
       <div className="mt-14">
         <h4 className="font-bold">Already have an account?</h4>

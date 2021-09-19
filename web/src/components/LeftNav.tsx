@@ -19,45 +19,46 @@ const LeftNav: FC = () => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="ml-auto flex h-screen flex-col pt-4 lg:text-lg ">
-      <div className="flex flex-col space-y-4 items-start">
+    <div className="ml-auto flex h-screen flex-col pt-4 p-2 lg:text-lg ">
+      <div className="flex flex-col space-y-4 items-center lg:items-start">
         <Link to="/users">
           <img src={favicon} alt="logo" className="w-10 h-10" />
         </Link>
         <Link to="/" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaHome className="inline mr-3" />
-            <span>Home</span>
+            <span className="hidden lg:inline-block">Home</span>
           </h2>
         </Link>
         <Link to="/profile" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaUser className="inline mr-3" />
-            <span>Profile</span>
+            <span className="hidden lg:inline-block">Profile</span>
           </h2>
         </Link>
         <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaEnvelope className="inline mr-3" />
-            <span>Messages</span>
+            <span className="hidden lg:inline-block">Messages</span>
           </h2>
         </Link>
         <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaBell className="inline mr-3" />
-            <span>Notifications</span>
+            <span className="hidden lg:inline-block">Notifications</span>
           </h2>
         </Link>
         <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
           <h2>
             <FaEllipsisH className="inline mr-3" />
-            <span>More</span>
+            <span className="hidden lg:inline-block">More</span>
           </h2>
         </Link>
       </div>
       <button
         className="bg-primary mt-4 border-0 border-primary rounded-3xl 
-      py-2 w-11/12 text-white text-lg font-bold hover:bg-secondary 
+      py-2 w-11/12 text-white text-lg font-bold hover:bg-secondary
+      hidden lg:block 
       "
         onClick={openModal}
       >
