@@ -83,7 +83,7 @@ const Tweet: FC<TweetProps> = ({ onTweet, user }) => {
               type="text"
               as="textarea"
               placeholder="What's happening?"
-              className="border-0 h-20 flex-grow"
+              className="border-0 h-20 flex-grow focus:outline-none"
             />
           </div>
           <div className="flex">

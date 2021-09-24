@@ -12,28 +12,28 @@ const SearchBox: FC<SearchBoxProps> = () => {
 
   const handleFocusEvent = (e: FocusEvent<HTMLInputElement>) => {
     console.log(box.current);
-    box.current?.classList.replace('border-accent', 'border-primary');
-    box.current?.classList.replace('bg-accent', 'bg-white');
+    box.current?.classList.replace('border-transparent', 'border-primary');
+    box.current?.classList.replace('bg-gray-200', 'bg-white');
     icon.current?.classList.add('text-primary');
   };
   const handleBlurEvent = (e: FocusEvent<HTMLInputElement>) => {
     console.log(box.current?.className);
     // box.current?.classList.remove('border-primary');
     // box.current?.classList.add('border-accent');
-    box.current?.classList.replace('border-primary', 'border-accent');
-    box.current?.classList.replace('bg-white', 'bg-accent');
+    box.current?.classList.replace('border-primary', 'border-transparent');
+    box.current?.classList.replace('bg-white', 'bg-gray-200');
     icon.current?.classList.remove('text-primary');
   };
   return (
     <div
       ref={box}
-      className="bg-accent border-2 border-accent rounded-3xl flex items-center "
+      className="bg-gray-200 border-2  border-transparent rounded-3xl flex items-center "
     >
       <div ref={icon}>
-        <IoSearchOutline className="w-6 h-6 m-2" />
+        <IoSearchOutline className="w-6 h-6 mx-4 my-3" />
       </div>
       <input
-        className="bg-transparent text-left border-0 flex-grow rounded-none"
+        className="bg-transparent placeholder-gray-700 text-left border-0 flex-grow rounded-none"
         type="text"
         name="search"
         id="search"
