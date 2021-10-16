@@ -5,7 +5,7 @@ import { ME_QUERY } from '../pages/Profile';
 import * as Yup from 'yup';
 import { FaUser } from 'react-icons/fa';
 import Loading from './Loading';
-import { FEED_QUERY } from '../pages/Home';
+import { FEED_QUERY } from './AllTweets';
 
 const CREATE_TWEET_MUTATION = gql`
   mutation createTweet($content: String) {
