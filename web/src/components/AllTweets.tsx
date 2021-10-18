@@ -2,6 +2,12 @@ import React, { FC } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { FaUser } from 'react-icons/fa';
 import Loading from '../components/Loading';
+import {
+  differenceInDays,
+  differenceInYears,
+  format,
+  formatDistanceToNow,
+} from 'date-fns';
 
 interface AllTweetsProps {
   className?: string;
@@ -41,6 +47,14 @@ export interface Feed {
     };
   }[];
 }
+const dateView = (date: string) => {
+  let currentDate = new Date(date);
+  if (differenceInDays(new Date(), currentDate) < 1)
+    return formatDistanceToNow(currentDate);
+  else if (differenceInYears(new Date(), currentDate) < 1)
+    return format(currentDate, 'LLL d');
+  else return format(currentDate, 'LLL d, y');
+};
 const AllTweets: FC<AllTweetsProps> = () => {
   const { loading, error, data } = useQuery<Feed>(FEED_QUERY);
 
@@ -68,13 +82,15 @@ const AllTweets: FC<AllTweetsProps> = () => {
                 </div>
                 <div className="flex-grow">
                   <div className="flex flex-col">
-                    <div>
+                    <div className="">
                       <span className="font-bold">
                         {tweet.author.name}{' '}
                       </span>
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 text-sm">
                         @{tweet.author.name}
                         {tweet.author.id}
+                        {' . '}
+                        {dateView(tweet.createdAt)}
                       </span>
                     </div>
                     <div>{tweet.content}</div>
