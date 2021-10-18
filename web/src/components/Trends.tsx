@@ -63,8 +63,8 @@ const Trends: FC<TrendsProps> = () => {
         <div className="text-xl font-bold">Trends for you</div>
         <IoSettingsOutline className="w-5 h-5 ml-auto mr-2" />
       </div>
-      {trendsItem.map((item: TrendElement) => (
-        <TrendsItem trendItem={item} />
+      {trendsItem.map((item: TrendElement, index) => (
+        <TrendsItem key={index} trendItem={item} />
       ))}
     </div>
   );
