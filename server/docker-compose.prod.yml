@@ -1,14 +1,14 @@
-version: "3.5"
+version: "3.9"
 
 services: 
   db:
-    image: postgres
+    image: postgres:14.1-alpine
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     ports:
-      - '5432:5432'
+      - '5432:5432' 
     volumes: 
       - postgres_prod:/var/lib/postgresql
     networks: 
@@ -18,7 +18,7 @@ services:
     build: .
     env_file: .env.production
     ports:
-      - '${PORT}:4000'
+      - '${PORT-4000}:4000'
     depends_on: 
       - db
     networks: 

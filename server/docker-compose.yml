@@ -1,17 +1,18 @@
-version: "3.7"
+version: "3.9"
 
 services: 
   twitter-db:
-      image: postgres
-      container_name: twitter-db
-      environment:
-        POSTGRES_USER: ${DATABASE_USERNAME}
-        POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-        POSTGRES_DB: ${DATABASE_NAME}
-      ports:
-        - "5432:5432"
-      volumes: 
-        - postgres_volume:/var/lib/postgresql
+    image: postgres:14.1-alpine
+    container_name: twitter-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes: 
+      - postgres_volume:/var/lib/postgresql
 
 volumes: 
   postgres_volume:
